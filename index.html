@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101211">
+<title>Rodrigo Castro — Front-end em formação</title>
+<meta name="description" content="Rodrigo Castro, estudante de ADS na UNIVAG. Conheça meus projetos e minha evolução no front-end com HTML, CSS e JavaScript.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#topo">Pular para o conteúdo</a>
+<header class="nav"><a class="logo" href="#topo">rc<span>.</span><span class="logo-name">Rodrigo Castro</span></a>
+<button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-controls="links" aria-expanded="false">☰</button>
+<nav class="links" id="links" aria-label="Navegação principal"><a href="#projetos">Projetos</a><a href="#sobre">Sobre</a><a href="#skills">Estudos</a><a href="#contato" class="nav-contact">Vamos conversar ↗</a></nav></header>
+<aside class="access-tools" aria-label="Preferências de acessibilidade"><details id="accessPanel"><summary>Aa <span>Acessibilidade</span></summary><div class="access-options"><p>Personalize sua leitura</p><button id="contrastToggle" type="button" aria-pressed="false">Alto contraste</button><button id="textToggle" type="button" aria-pressed="false">Texto ampliado</button><button id="motionToggle" type="button" aria-pressed="false">Reduzir movimento</button><button id="resetAccess" type="button">Restaurar preferências</button></div></details></aside>
+<main id="topo" tabindex="-1">
+<section class="hero">
+<div class="hero-copy"><p class="eyebrow"><span class="dot"></span> FRONT-END EM FORMAÇÃO · MT, BRASIL</p>
+<h1>Aprendo<br>construindo.<br><em>Crio para resolver.</em></h1>
+<p class="sub">Sou <strong>Rodrigo Castro</strong>, estudante de ADS na UNIVAG. Transformo o que aprendo em projetos para a web, com HTML, CSS e JavaScript.</p>
+<div class="cta"><a class="btn" href="#projetos">Explore meu trabalho <span>↗</span></a><a class="text-link" href="#sobre">Conheça minha história <span>↓</span></a></div>
+</div>
+<div class="hero-art" role="region" aria-label="Demonstração interativa de front-end">
+<div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
+<div class="code-window"><div class="window-top"><span class="window-dots" aria-hidden="true">● ● ●</span><span id="codeFilename">hello-world.html</span><span aria-hidden="true">↗</span></div>
+<div class="code-tabs" role="group" aria-label="Escolha uma linguagem"><button type="button" data-language="html" aria-pressed="true">HTML</button><button type="button" data-language="css" aria-pressed="false">CSS</button><button type="button" data-language="js" aria-pressed="false">JavaScript</button></div>
+<pre class="interactive-code" id="codeContent" aria-label="Exemplo de código">&lt;developer&gt;
+  nome: "Rodrigo"
+  foco: "front-end"
+  aprendizado: contínuo
+&lt;/developer&gt;</pre>
+<div class="demo-output"><span class="demo-label">RESULTADO AO VIVO</span><div id="demoPreview"><strong>Olá, eu sou Rodrigo.</strong><span>Uma ideia começa com uma estrutura.</span></div><button id="runDemo" type="button">Executar exemplo <span aria-hidden="true">▶</span></button></div>
+<div class="window-bottom"><span class="dot" aria-hidden="true"></span><span id="demoStatus" role="status" aria-live="polite">HTML: a estrutura da página.</span></div></div>
+<button class="art-sticker" id="nextLanguage" type="button" aria-label="Explorar a próxima linguagem">&lt;/&gt;<small>clique e explore ↗</small></button>
+</div>
+</section>
+<div class="stats"><div><b>06<span> meses</span></b><p>de estudo e prática</p></div><div><b>03<span> projetos</span></b><p>construídos durante os estudos</p></div><div><b>ADS<span> / UNIVAG</span></b><p>minha formação em andamento</p></div><a href="#projetos" class="stats-link">Continue explorando ↓</a></div>
+<section id="projetos" class="section reveal">
+<div class="section-heading"><div><p class="eyebrow">01 / PROJETOS EM DESTAQUE</p><h2>Código com propósito.</h2></div><p>De soluções para a cidade a jogos.<br>Aprendizado colocado em prática.</p></div>
+<article class="featured-project">
+<div class="project-art"><span class="project-category">WEB · SUSTENTABILIDADE</span><div class="collection-visual" aria-hidden="true"><span class="recycle">♻</span><span class="visual-line"></span><span class="visual-pin">↙</span><strong>Um destino melhor<br>para o que você descarta.</strong></div><span class="visual-caption">PONTO DE COLETA / VÁRZEA GRANDE, MT</span></div>
+<div class="project-copy"><p class="eyebrow">PROJETO 01</p><h3>Ponto de Coleta<span>↗</span></h3><p>Um site para encontrar pontos de coleta de reciclagem em Várzea Grande, Mato Grosso.</p><div class="project-detail"><h4>O propósito</h4><p>Facilitar o acesso à informação sobre onde levar materiais para reciclagem na cidade.</p></div><div class="project-detail"><h4>Por que está aqui</h4><p>É meu projeto mais completo até agora e parte da minha trajetória de aprendizado em front-end.</p></div><div class="tags"><span>HTML</span><span>CSS3</span><span>JavaScript</span></div><a class="project-link" href="https://github.com/LaissaRibeiro/ponto-de-coleta" target="_blank" rel="noopener noreferrer">Explorar o repositório <span>↗</span></a></div>
+</article>
+<article class="featured-project trex-project">
+<div class="project-art trex-art"><span class="project-category">JOGO WEB · JAVASCRIPT</span><div class="trex-scene" aria-hidden="true"><span class="trex-score">SCORE 00100</span><span class="trex-cloud">☁</span><span class="trex-dino">🦖</span><span class="trex-cactus">♧</span><span class="trex-ground"></span></div><div class="trex-caption"><strong>Um salto.<br>Mais uma tentativa.</strong><span class="visual-caption">TREX / JOGO DE CORRIDA INFINITA</span></div></div>
+<div class="project-copy"><p class="eyebrow">PROJETO 02</p><h3>Trex<span aria-hidden="true">↗</span></h3><p>Um jogo de corrida infinita inspirado no dinossauro do Chrome, desenvolvido com JavaScript e as bibliotecas p5.js e p5.play.</p><div class="project-detail"><h4>A mecânica</h4><p>O código combina saltos, obstáculos aleatórios, pontuação, detecção de colisões e reinício de partida, com animações e efeitos sonoros.</p></div><div class="project-detail"><h4>O que o projeto explora</h4><p>Estados de jogo, movimento de sprites e eventos de entrada: uma aplicação de JavaScript além das interfaces tradicionais.</p></div><div class="tags"><span>JavaScript</span><span>p5.js</span><span>p5.play</span></div><a class="project-link" href="https://github.com/RodrigoBarrosF/Trex" target="_blank" rel="noopener noreferrer" aria-label="Explorar o repositório do Trex no GitHub, abre em nova aba">Explorar o repositório <span aria-hidden="true">↗</span></a></div>
+</article>
+</section>
+<section id="sobre" class="section about reveal"><div><p class="eyebrow">02 / QUEM ESTÁ POR TRÁS</p><h2>Curioso por natureza.<br><span class="muted">Dev em construção.</span></h2><div class="about-signature">Rodrigo Castro<span>18 anos · Várzea Grande, MT</span></div></div><div class="about-copy"><p>Meu nome é Rodrigo Castro de Barros Filho. Curso <strong>Análise e Desenvolvimento de Sistemas na UNIVAG</strong> e estou construindo minha base no desenvolvimento front-end.</p><p>São <strong>6 meses de estudo e 3 projetos</strong> feitos durante esse caminho. Aprendo fazendo, errando e refazendo até a página funcionar bem no celular e no computador.</p><p>Este portfólio também faz parte desse processo: um espaço para compartilhar o que construo e acompanhar minha evolução.</p><div class="about-note"><span>↗</span> Cada projeto é um próximo passo.</div></div></section>
+<section id="skills" class="section reveal"><div class="section-heading"><div><p class="eyebrow">03 / MINHA BASE</p><h2>O que estou praticando.</h2></div><p>Aprendizado em andamento,<br>aplicado em cada projeto.</p></div><div class="skills-grid"><article class="skill"><span class="skill-icon">&lt;/&gt;</span><span class="skill-status">Construindo a base</span><h3>HTML5</h3><p>Estrutura de páginas, organização do conteúdo e elementos semânticos.</p></article><article class="skill"><span class="skill-icon">{ }</span><span class="skill-status">Praticando</span><h3>CSS3</h3><p>Layouts, cores, tipografia e os detalhes que dão identidade a uma interface.</p></article><article class="skill"><span class="skill-icon">JS</span><span class="skill-status">Aprendendo</span><h3>JavaScript</h3><p>Eventos e interações para trazer comportamento às páginas.</p></article><article class="skill"><span class="skill-icon">↔</span><span class="skill-status">Praticando</span><h3>Responsividade</h3><p>Adaptação de interfaces para navegar no celular e no computador.</p></article></div></section>
+<section id="contato" class="contact section reveal"><p class="eyebrow">04 / VAMOS CONVERSAR</p><h2>Uma boa conversa pode<br>ser o <em>próximo passo.</em></h2><p>Quer conversar sobre meus projetos, trocar ideias ou compartilhar uma oportunidade? Entre em contato.</p><a class="btn" href="https://wa.me/5565992188213" target="_blank" rel="noopener noreferrer">Falar pelo WhatsApp <span>↗</span></a><div class="contact-links"><a href="mailto:rodrigobarrosfh@gmail.com">E-mail ↗</a><a href="https://github.com/RodrigoBarrosF" target="_blank" rel="noopener noreferrer">GitHub ↗</a><button id="discordBtn" data-copy="rd0512" type="button" aria-label="Copiar Discord rd0512">Discord: rd0512 <span>⧉</span></button></div></section>
+</main>
+<footer><a class="logo" href="#topo">rc<span>.</span></a><p>© 2026 Rodrigo Castro · Feito com HTML, CSS e JavaScript</p><a href="#topo">Voltar ao topo ↑</a></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js" defer></script>
+</body>
+</html>
