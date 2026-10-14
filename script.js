@@ -1,4 +1,51 @@
-﻿const menuButton = document.getElementById('menuBtn');
+﻿// Apresentação visual de 2,2 segundos; a barra não representa um download.
+(() => {
+  const opening = document.getElementById('opening');
+  if (!opening) return;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let reduced = motion.matches;
+  try { reduced ||= JSON.parse(localStorage.getItem('rc-accessibility'))?.motion === true; } catch {}
+  if (reduced || window.location.hash) { opening.remove(); return; }
+  const siblings = [...document.body.children].filter(el => el !== opening && el.tagName !== 'SCRIPT');
+  const originalInert = siblings.map(el => el.inert);
+  let timer, exitTimer, leaving = false, finished = false;
+  function cleanup() {
+    if (finished) return;
+    finished = true;
+    clearTimeout(timer);
+    clearTimeout(exitTimer);
+    siblings.forEach((el, i) => { el.inert = originalInert[i]; });
+    document.body.classList.remove('opening-active');
+    document.removeEventListener('keydown', onKey);
+    motion.removeEventListener('change', onMotion);
+    opening.remove();
+    document.getElementById('topo')?.focus({ preventScroll: true });
+  }
+  function leave(immediate = false) {
+    if (immediate) { cleanup(); return; }
+    if (leaving || finished) return;
+    leaving = true;
+    clearTimeout(timer);
+    opening.classList.add('opening-leaving');
+    exitTimer = setTimeout(cleanup, 450);
+  }
+  function onMotion(event) { if (event.matches) leave(true); }
+  function onKey(event) {
+    if (event.key === 'Escape' || event.key === 'Tab') { event.preventDefault(); leave(true); }
+  }
+  siblings.forEach(el => { el.inert = true; });
+  document.body.classList.add('opening-active');
+  opening.hidden = false;
+  opening.focus({ preventScroll: true });
+  document.addEventListener('keydown', onKey);
+  motion.addEventListener('change', onMotion);
+  opening.addEventListener('animationend', event => {
+    if (event.target.id === 'openingFill' && event.animationName === 'opening-progress') leave();
+    if (event.target === opening && event.animationName === 'opening-fade') cleanup();
+  });
+  timer = setTimeout(() => leave(), 2250);
+})();
+const menuButton = document.getElementById('menuBtn');
 const menu = document.getElementById('links');
 function closeMenu() {
   menu.classList.remove('open');
@@ -152,3 +199,121 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', event => {
   if (!event.target.closest('.access-tools')) accessPanel.open = false;
 });
+
+
+
+
+
+// Digitação decorativa; descrição estática disponível para leitores de tela.
+(() => {
+  const target = document.getElementById('typingText');
+  if (!target) return;
+  const phrases = ['Front-end Developer', 'Back-end em formação', 'HTML + CSS + JavaScript', 'Node.js + SQLite'];
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let timer, index = 0, text = phrases[0], deleting = true;
+  let reduced = false;
+  function refreshMotion() {
+    try { reduced = motion.matches || JSON.parse(localStorage.getItem('rc-accessibility'))?.motion === true; }
+    catch { reduced = motion.matches; }
+    clearTimeout(timer);
+    if (reduced) { target.textContent = phrases[0]; return; }
+    text = phrases[index];
+    target.textContent = text;
+    deleting = true;
+    timer = setTimeout(step, 1900);
+  }
+  function step() {
+    if (reduced) return;
+    if (document.hidden || document.getElementById('opening')) {
+      timer = setTimeout(step, 250);
+      return;
+    }
+    const phrase = phrases[index];
+    if (deleting) {
+      text = text.slice(0, -1);
+      target.textContent = text;
+      if (!text) {
+        deleting = false;
+        index = (index + 1) % phrases.length;
+        timer = setTimeout(step, 320);
+      } else timer = setTimeout(step, 40);
+    } else {
+      text = phrases[index].slice(0, text.length + 1);
+      target.textContent = text;
+      if (text === phrases[index]) {
+        deleting = true;
+        timer = setTimeout(step, 1900);
+      } else timer = setTimeout(step, 85);
+    }
+  }
+  motion.addEventListener('change', refreshMotion);
+  document.getElementById('motionToggle')?.addEventListener('click', refreshMotion);
+  document.getElementById('resetAccess')?.addEventListener('click', refreshMotion);
+  window.addEventListener('storage', event => { if (event.key === 'rc-accessibility') refreshMotion(); });
+  refreshMotion();
+})();
+// Effets légers: un seul calcul par image pour le défilement et le pointeur.
+(() => {
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const effectsAllowed = () => !motion.matches && !document.documentElement.classList.contains('reduce-motion') && !document.documentElement.classList.contains('high-contrast');
+  const bar = document.createElement('div');
+  bar.className = 'reading-progress';
+  bar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(bar);
+  let scrollFrame = 0;
+  function updateReading() {
+    scrollFrame = 0;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    bar.style.transform = `scaleX(${ratio})`;
+  }
+  function scheduleReading() {
+    if (!scrollFrame) scrollFrame = requestAnimationFrame(updateReading);
+  }
+  window.addEventListener('scroll', scheduleReading, { passive: true });
+  window.addEventListener('resize', scheduleReading);
+  updateReading();
+  document.querySelectorAll('.skills-grid, #projetos, .about-copy').forEach(group => {
+    const items = group.querySelectorAll('.skill, .featured-project, :scope > p');
+    items.forEach((item, index) => item.style.setProperty('--arrival-delay', Math.min(index * 75, 300) + 'ms'));
+  });
+  document.querySelectorAll('.skill, .project-copy').forEach(card => {
+    let frame = 0, point;
+    card.addEventListener('pointermove', event => {
+      if (!finePointer.matches || !effectsAllowed()) return;
+      point = { x: event.clientX, y: event.clientY };
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        if (!point || !effectsAllowed()) return;
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--light-x', point.x - rect.left + 'px');
+        card.style.setProperty('--light-y', point.y - rect.top + 'px');
+        card.classList.add('pointer-lit');
+      });
+    }, { passive: true });
+    card.addEventListener('pointerleave', () => {
+      point = null;
+      cancelAnimationFrame(frame);
+      frame = 0;
+      card.classList.remove('pointer-lit');
+    });
+  });
+  if ('IntersectionObserver' in window) {
+    const links = [...document.querySelectorAll('.links a[href^="#"]')];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        links.forEach(link => {
+          if (link.getAttribute('href') === '#' + entry.target.id) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-15% 0px -65% 0px', threshold: 0 });
+    links.forEach(link => {
+      const section = document.querySelector(link.getAttribute('href'));
+      if (section) observer.observe(section);
+    });
+  }
+})();
